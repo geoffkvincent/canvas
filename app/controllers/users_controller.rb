@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   def index
     @users = User.all
   end
@@ -9,10 +9,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    render partial: "form"
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
     if @user.save
       redirect_to @user
     else
@@ -21,12 +22,20 @@ class UsersController < ApplicationController
   end
 
   def edit
+    render partial: "form"
   end
 
   def update
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @user.destroy
+    redirect_to users_path
   end
 
   private
@@ -36,6 +45,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
+    
   end
   
 end
