@@ -1,5 +1,5 @@
 <h1><%= @user.id ?  'Edit User' : 'Add User' %></h1>
-<%= form_for @user do |f| %>
+<%= form_for @user.id ? User.find(params[:id]) : @user do |f| %>
   <div>
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
