@@ -1,6 +1,6 @@
 class EnrollmentsController < ApplicationController
   before_action :set_course
-  
+
   def index
     @teachers = @course.enrollments.where(role: 'teacher')
     @students = @course.enrollments.where(role: 'student')
@@ -8,6 +8,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def new
+    @users = User.all - @course.users
     @enrollment = @course.enrollments.new
   end
 
